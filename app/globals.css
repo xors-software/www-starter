@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Safe-area insets for iOS notch */
+	--safe-top: env(safe-area-inset-top);
+	--safe-bottom: env(safe-area-inset-bottom);
+	--safe-left: env(safe-area-inset-left);
+	--safe-right: env(safe-area-inset-right);
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+	body {
+		padding-top: var(--safe-top);
+		padding-bottom: var(--safe-bottom);
+		margin: 0;
+	}
+}
+
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+
+	/* Chrome, Safari and Opera */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	.backface-hidden {
+		backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		-ms-backface-visibility: hidden;
+	}
+}

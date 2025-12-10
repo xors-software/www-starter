@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
+  --foreground: 0, 0, 0;
+  --background: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground: 255, 255, 255;
+    --background: 0, 0, 0;
+  }
+} */
+
+@layer base {
+	body {
+		/* - This allows us to have a holy-grail `flex` layout: https: //philipwalton.github.io/solved-by-flexbox/demos/holy-grail/ */
+		/* - Children can fill available height with `flex: 1` */
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		min-height: 100dvh;
+	}
+}

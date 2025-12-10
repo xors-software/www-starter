@@ -21,7 +21,7 @@ export default function Navigation({
 				)}
 			>
 				<Link href="/" className="font-bold text-xl">
-					Logo
+					XORS
 				</Link>
 				<div className={clsx("flex items-center space-x-4")}>
 					<Link href="/">

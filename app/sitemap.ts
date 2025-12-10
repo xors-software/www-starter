@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://checkpoint.pictures',
+      url: 'https://example.com',
       lastModified: new Date(),
     },
   ];

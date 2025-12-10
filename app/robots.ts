@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/api/',
     },
-    sitemap: 'https://checkpoint.pictures/sitemap.xml',
+    sitemap: 'https://example.com/sitemap.xml',
   };
 }

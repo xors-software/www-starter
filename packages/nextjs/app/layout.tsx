@@ -5,6 +5,7 @@ import { APP_CONFIG } from "@/config"
 import type { Metadata } from "next"
 import { NeueHaasGrotesk, Printvetica, Iosevka } from "@/fonts/fonts"
 import { Toaster } from "@/components/toasts/Toaster"
+import { Web3Provider } from "@/providers/Web3Provider"
 
 export const metadata: Metadata = {
 	title: APP_CONFIG.NAME,
@@ -26,7 +27,9 @@ export default function RootLayout({
 			)}
 		>
 			<body>
-				{children}
+				<Web3Provider>
+					{children}
+				</Web3Provider>
 				<Toaster />
 			</body>
 		</html>

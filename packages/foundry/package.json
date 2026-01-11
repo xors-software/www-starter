@@ -5,8 +5,10 @@
 	"scripts": {
 		"build": "forge build",
 		"test": "forge test",
+		"deploy:local": "forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --broadcast",
 		"deploy": "forge script script/Deploy.s.sol --broadcast",
-		"generate": "bun run scripts/generate-contracts.ts"
+		"generate": "bun run scripts/generate-contracts.ts",
+		"deploy:generate": "bun run deploy:local && bun run generate"
 	},
 	"devDependencies": {
 		"typescript": "^5.9.3"

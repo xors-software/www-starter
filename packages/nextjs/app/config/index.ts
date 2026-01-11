@@ -3,3 +3,5 @@
 
 export * from "./app"
 export * from "./measurements"
+
+// Note: wagmi config is client-only, import directly from "@/config/wagmi"

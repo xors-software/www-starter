@@ -7,3 +7,6 @@ export * from './useIsUserAgent'
 export * from './useBreakpoints'
 export * from './useCountdown'
 export * from './useInterval'
+
+// Scaffold-ETH style contract hooks
+export * from './scaffold-eth'

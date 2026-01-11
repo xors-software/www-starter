@@ -3,3 +3,6 @@
 export * from "./FullScreenPanel"
 export * from "./Navigation"
 export * from "./Text"
+
+// Web3 components
+export * from "./web3"

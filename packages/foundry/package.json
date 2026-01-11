@@ -1,0 +1,14 @@
+{
+	"name": "@xors/foundry",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"build": "forge build",
+		"test": "forge test",
+		"deploy": "forge script script/Deploy.s.sol --broadcast",
+		"generate": "bun run scripts/generate-contracts.ts"
+	},
+	"devDependencies": {
+		"typescript": "^5.9.3"
+	}
+}

@@ -1,0 +1,33 @@
+// TODO: Uncomment when react-responsive is installed: npm install react-responsive
+import { lgBreakpoint, mdBreakpoint, smBreakpoint, xlBreakpoint } from '@/constants'
+// import { useMediaQuery } from 'react-responsive'
+
+export function useBreakpoints() {
+  // TODO: Uncomment when react-responsive is installed
+  // const isMaxSM = useMediaQuery({ query: `(max-width: ${smBreakpoint})` }) // 480
+  // const isMaxMD = useMediaQuery({ query: `(max-width: ${mdBreakpoint})` }) // 768
+  // const isMaxLG = useMediaQuery({ query: `(max-width: ${lgBreakpoint})` }) // 976
+  // const isMaxXL = useMediaQuery({ query: `(max-width: ${xlBreakpoint})` }) // 1440
+
+  // const isMinSM = useMediaQuery({ query: `(min-width: ${smBreakpoint})` }) // 480
+  // const isMinMD = useMediaQuery({ query: `(min-width: ${mdBreakpoint})` }) // 768
+  // const isMinLG = useMediaQuery({ query: `(min-width: ${lgBreakpoint})` }) // 976
+  // const isMinXL = useMediaQuery({ query: `(min-width: ${xlBreakpoint})` }) // 1440
+
+  // Stub implementation - returns all false
+  return {
+    isMaxSM: false,
+    isMaxMD: false,
+    isMaxLG: false,
+    isMaxXL: false,
+    isMinSM: false,
+    isMinMD: false,
+    isMinLG: false,
+    isMinXL: false,
+    //
+    isMobile: false,
+    isTablet: false,
+    isDesktop: false
+  }
+}
+

@@ -1,0 +1,18 @@
+// TODO: Uncomment when viem and services are set up
+// import { viemPublicClient } from "@/services"
+// import { isAddress } from "viem"
+// import { mainnet } from 'viem/chains'
+
+export async function formatDisplayName(address: `0x${string}`) {
+    if (address.endsWith('.eth')) {
+        return address
+    }
+    // TODO: Uncomment when viem is installed
+    // else if (isAddress(address)) {
+    //     const possibleENS = await viemPublicClient({ chainId: mainnet.id }).getEnsName({
+    //         address,
+    //     })
+    //     return possibleENS ?? address
+    // }
+    return address
+}

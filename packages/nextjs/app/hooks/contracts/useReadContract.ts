@@ -1,22 +1,17 @@
 "use client"
 
-import { useReadContract, type UseReadContractParameters } from "wagmi"
+import { useReadContract as useWagmiReadContract, type UseReadContractParameters } from "wagmi"
 import { useDeployedContractInfo } from "./useDeployedContractInfo"
 import deployedContracts from "@/contracts/deployedContracts"
-import type { Abi, AbiFunction } from "viem"
+import type { Abi } from "viem"
 
 type ContractName = keyof (typeof deployedContracts)[keyof typeof deployedContracts]
 
-type ExtractAbiFunctionNames<TAbi extends Abi> = Extract<
-  TAbi[number],
-  { type: "function"; stateMutability: "view" | "pure" }
->["name"]
-
 /**
- * Scaffold-eth style hook for reading contract data.
+ * Hook for reading contract data.
  * Automatically resolves contract address and ABI from deployedContracts.
  */
-export function useScaffoldReadContract<
+export function useReadContract<
   TContractName extends ContractName,
   TFunctionName extends string = string,
 >({
@@ -31,7 +26,7 @@ export function useScaffoldReadContract<
 } & Omit<UseReadContractParameters, "address" | "abi" | "functionName" | "args">) {
   const { data: deployedContract } = useDeployedContractInfo(contractName)
 
-  return useReadContract({
+  return useWagmiReadContract({
     address: deployedContract?.address,
     abi: deployedContract?.abi as Abi,
     functionName,

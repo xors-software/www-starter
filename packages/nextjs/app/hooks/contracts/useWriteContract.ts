@@ -1,6 +1,6 @@
 "use client"
 
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi"
+import { useWriteContract as useWagmiWriteContract, useWaitForTransactionReceipt } from "wagmi"
 import { useDeployedContractInfo } from "./useDeployedContractInfo"
 import deployedContracts from "@/contracts/deployedContracts"
 import type { Abi } from "viem"
@@ -10,10 +10,10 @@ import { toast } from "sonner"
 type ContractName = keyof (typeof deployedContracts)[keyof typeof deployedContracts]
 
 /**
- * Scaffold-eth style hook for writing to contracts.
+ * Hook for writing to contracts.
  * Includes automatic toast notifications and transaction tracking.
  */
-export function useScaffoldWriteContract<TContractName extends ContractName>(
+export function useWriteContract<TContractName extends ContractName>(
   contractName: TContractName
 ) {
   const { data: deployedContract } = useDeployedContractInfo(contractName)
@@ -25,7 +25,7 @@ export function useScaffoldWriteContract<TContractName extends ContractName>(
     isPending,
     error,
     reset,
-  } = useWriteContract()
+  } = useWagmiWriteContract()
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({

@@ -3,10 +3,10 @@
 import { useState } from "react"
 import { useAccount } from "wagmi"
 import {
-  useScaffoldReadContract,
-  useScaffoldWriteContract,
+  useReadContract,
+  useWriteContract,
   useDeployedContractInfo,
-} from "@/hooks/scaffold-eth"
+} from "@/hooks/contracts"
 import { Address, Balance } from "@/components/web3"
 import { cn } from "@/utils/cn"
 
@@ -20,14 +20,14 @@ export function ContractDemo() {
   const [newNumber, setNewNumber] = useState("")
 
   // Read current number from contract
-  const { data: currentNumber, refetch } = useScaffoldReadContract({
+  const { data: currentNumber, refetch } = useReadContract({
     contractName: "Counter",
     functionName: "number",
   })
 
   // Write hook for contract interactions
   const { write, isPending, isConfirming, isConfirmed } =
-    useScaffoldWriteContract("Counter")
+    useWriteContract("Counter")
 
   const handleIncrement = async () => {
     await write({ functionName: "increment" })

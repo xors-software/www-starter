@@ -3,7 +3,7 @@
 import { useBalance } from "wagmi"
 import { formatEther } from "viem"
 import { cn } from "@/utils/cn"
-import { useTargetNetwork } from "@/hooks/scaffold-eth"
+import { useTargetNetwork } from "@/hooks/contracts"
 
 interface BalanceProps {
   address?: `0x${string}`
@@ -16,7 +16,6 @@ interface BalanceProps {
 
 /**
  * Display ETH balance for an address.
- * Similar to scaffold-eth's Balance component.
  */
 export function Balance({
   address,

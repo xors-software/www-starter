@@ -9,7 +9,6 @@ type ContractName = keyof (typeof deployedContracts)[keyof typeof deployedContra
 
 /**
  * Get deployed contract info (address + ABI) for the current target network.
- * Similar to scaffold-eth's useDeployedContractInfo hook.
  */
 export function useDeployedContractInfo<TContractName extends ContractName>(
   contractName: TContractName

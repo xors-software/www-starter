@@ -19,7 +19,6 @@ interface AddressProps {
 
 /**
  * Display an Ethereum address with optional ENS resolution.
- * Similar to scaffold-eth's Address component.
  */
 export function Address({
   address,

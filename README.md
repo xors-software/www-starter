@@ -7,11 +7,15 @@ A [Next.js](https://nextjs.org/) project starter for XORS projects, initialized 
 - [Biome](https://biomejs.dev/) for linting and formatting
 - [bun](https://bun.sh/) for package management and running scripts
 - [clsx](https://github.com/lukeed/clsx) for constructing className strings conditionally
+- [ConnectKit](https://docs.family.co/connectkit) for wallet connection UI
 - [CVA](https://cva.style/docs) for organizing variant styles
+- [Foundry](https://book.getfoundry.sh/) for smart contract development
 - [ShadCN](https://ui.shadcn.com/docs/installation/next) for starter components built with Radix+Tailwind
 - [svgr](https://react-svgr.com) for transforming SVGs into React components
 - [Tailwind](https://tailwindcss.com/) for CSS
+- [Viem](https://viem.sh/) for Ethereum interactions
 - [Vitest](https://vitest.dev/) for unit tests
+- [Wagmi](https://wagmi.sh/) for React hooks for Ethereum
 
 ## Getting Started
 
@@ -21,25 +25,70 @@ A [Next.js](https://nextjs.org/) project starter for XORS projects, initialized 
 4. Run `npx vercel link` + `npx vercel env pull .env.local` to retrieve .env files from Vercel (if any)
 5. Run `bun dev` to launch an in-browser development environment at [http://localhost:3000](http://localhost:3000)
 
+### Web3 Development
+
+To work with smart contracts locally:
+
+```bash
+bun run chain          # Start local Anvil node
+bun run deploy:generate # Deploy contracts and generate TypeScript types
+bun run dev            # Start the Next.js dev server
+```
+
 ## Configuration
 
 Core config options can be handled in the `app/config` files. Config options include:
 
 - App Settings (Name, Description, URL)
 - Environment settings
+- Wagmi/Chain configuration
 
 See `.env.example` for required environment variables.
 
 ## Directory Structure
 
+### Next.js (`packages/nextjs`)
+
 - `/components` - React components
+- `/components/web3` - Web3-specific components (Address, Balance, ConnectButton)
 - `/config` - App configuration
 - `/constants` - Constant values (breakpoints, themes, URLs)
+- `/contracts` - Auto-generated contract ABIs and addresses
 - `/hooks` - Custom React hooks
+- `/hooks/contracts` - Contract interaction hooks
 - `/fonts` - Font files and configuration
 - `/providers` - React context providers
 - `/types` - TypeScript type definitions
 - `/utils` - Utility functions (new additions should include tests)
+
+### Foundry (`packages/foundry`)
+
+- `/src` - Solidity contracts
+- `/script` - Deployment scripts
+- `/test` - Contract tests
+- `/deployments` - Deployment addresses by chain ID
+
+## Contract Hooks
+
+This starter includes a set of hooks for type-safe contract interactions:
+
+```typescript
+import { useReadContract, useWriteContract, useDeployedContractInfo } from "@/hooks/contracts"
+
+// Read contract state
+const { data } = useReadContract({
+  contractName: "Counter",
+  functionName: "number",
+})
+
+// Write to contract
+const { write, isPending } = useWriteContract("Counter")
+await write({ functionName: "increment" })
+
+// Get contract info
+const { data: contract } = useDeployedContractInfo("Counter")
+console.log(contract?.address, contract?.abi)
+```
 
 ## Custom Files
 
@@ -96,16 +145,32 @@ bunx shadcn-ui@latest add button
 ## Scripts
 
 ```bash
-bun dev          # Start development server
-bun turbo        # Start dev server with Turbopack
-bun build        # Build for production
-bun start        # Start production server
-bun test         # Run tests
-bun test:watch   # Run tests in watch mode
-bun lint         # Lint code with Biome
-bun lint:fix     # Fix lint issues
-bun format       # Check formatting
-bun format:fix   # Fix formatting issues
-bun build-icons  # Generate icon components from SVGs
-bun type-check   # Run TypeScript type checking
+# Development
+bun dev              # Start development server
+bun turbo            # Start dev server with Turbopack
+bun run chain        # Start local Anvil blockchain
+
+# Build & Deploy
+bun build            # Build for production
+bun start            # Start production server
+bun run deploy       # Deploy contracts to local chain
+bun run deploy:generate # Deploy and generate TypeScript types
+bun run generate     # Regenerate TypeScript types from ABIs
+
+# Testing & Quality
+bun test             # Run tests
+bun test:watch       # Run tests in watch mode
+bun run test:foundry # Run Foundry contract tests
+bun lint             # Lint code with Biome
+bun lint:fix         # Fix lint issues
+bun format           # Check formatting
+bun format:fix       # Fix formatting issues
+bun type-check       # Run TypeScript type checking
+
+# Utilities
+bun build-icons      # Generate icon components from SVGs
 ```
+
+## Acknowledgements
+
+The contract hooks pattern in this starter is inspired by [Scaffold-ETH 2](https://github.com/scaffold-eth/scaffold-eth-2), an excellent open-source toolkit for building decentralized applications.

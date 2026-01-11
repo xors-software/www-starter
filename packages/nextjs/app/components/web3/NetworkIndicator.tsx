@@ -1,7 +1,7 @@
 "use client"
 
 import { useAccount, useSwitchChain } from "wagmi"
-import { useTargetNetwork } from "@/hooks/scaffold-eth"
+import { useTargetNetwork } from "@/hooks/contracts"
 import { cn } from "@/utils/cn"
 import { chains } from "@/config/wagmi"
 

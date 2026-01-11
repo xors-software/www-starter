@@ -31,7 +31,7 @@ export default function Home() {
             <h1>Web3 Wireframes</h1>
           </Text>
           <Text variant="paragraph-md" className="text-muted-foreground max-w-xl mx-auto">
-            A demonstration of scaffold-eth style contract hooks and web3 components. 
+            A demonstration of contract hooks and web3 components. 
             Connect your wallet and interact with the deployed Counter contract.
           </Text>
         </div>
@@ -41,7 +41,7 @@ export default function Home() {
           {/* Contract Interaction */}
           <WireframeSection
             title="Counter Contract"
-            description="Read and write to the deployed Counter contract using scaffold-eth style hooks."
+            description="Read and write to the deployed Counter contract."
           >
             <ContractDemo />
           </WireframeSection>
@@ -93,15 +93,15 @@ export default function Home() {
             {/* Hooks Reference */}
             <WireframeSection
               title="Available Hooks"
-              description="Scaffold-eth style hooks for contract interactions."
+              description="Contract hooks for type-safe interactions."
             >
               <div className="space-y-2 font-mono text-sm">
                 <div className="p-2 bg-muted/30 rounded">
-                  <code className="text-purple">useScaffoldReadContract</code>
+                  <code className="text-purple">useReadContract</code>
                   <span className="text-muted-foreground ml-2">// Read contract state</span>
                 </div>
                 <div className="p-2 bg-muted/30 rounded">
-                  <code className="text-purple">useScaffoldWriteContract</code>
+                  <code className="text-purple">useWriteContract</code>
                   <span className="text-muted-foreground ml-2">// Write transactions</span>
                 </div>
                 <div className="p-2 bg-muted/30 rounded">
@@ -142,7 +142,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-border mt-12">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          Built with scaffold-eth style hooks • Foundry • Next.js
+          Built with Foundry • Next.js • Wagmi
         </div>
       </footer>
     </main>

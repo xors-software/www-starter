@@ -13,7 +13,7 @@ import { join, resolve } from "path"
 
 const FOUNDRY_OUT_DIR = resolve(import.meta.dir, "../out")
 const DEPLOYMENTS_DIR = resolve(import.meta.dir, "../deployments")
-const NEXTJS_CONTRACTS_DIR = resolve(import.meta.dir, "../../nextjs/app/contracts")
+const WEBSITE_CONTRACTS_DIR = resolve(import.meta.dir, "../../website/app/contracts")
 
 // Contracts to include in generation (add your contract names here)
 const CONTRACTS_TO_GENERATE = ["Counter"]
@@ -174,9 +174,9 @@ async function main() {
   console.log("🔧 Generating contract types...\n")
 
   // Ensure output directory exists
-  if (!existsSync(NEXTJS_CONTRACTS_DIR)) {
-    await mkdir(NEXTJS_CONTRACTS_DIR, { recursive: true })
-    console.log(`📁 Created ${NEXTJS_CONTRACTS_DIR}`)
+  if (!existsSync(WEBSITE_CONTRACTS_DIR)) {
+    await mkdir(WEBSITE_CONTRACTS_DIR, { recursive: true })
+    console.log(`📁 Created ${WEBSITE_CONTRACTS_DIR}`)
   }
 
   // Get deployments
@@ -237,15 +237,15 @@ async function main() {
   const typesContent = await generateContractTypesFile()
   const indexContent = await generateIndexFile()
 
-  await writeFile(join(NEXTJS_CONTRACTS_DIR, "deployedContracts.ts"), contractsContent)
-  await writeFile(join(NEXTJS_CONTRACTS_DIR, "contractTypes.ts"), typesContent)
-  await writeFile(join(NEXTJS_CONTRACTS_DIR, "index.ts"), indexContent)
+  await writeFile(join(WEBSITE_CONTRACTS_DIR, "deployedContracts.ts"), contractsContent)
+  await writeFile(join(WEBSITE_CONTRACTS_DIR, "contractTypes.ts"), typesContent)
+  await writeFile(join(WEBSITE_CONTRACTS_DIR, "index.ts"), indexContent)
 
   console.log(`
 📦 Generated files:
-   - ${NEXTJS_CONTRACTS_DIR}/deployedContracts.ts
-   - ${NEXTJS_CONTRACTS_DIR}/contractTypes.ts
-   - ${NEXTJS_CONTRACTS_DIR}/index.ts
+   - ${WEBSITE_CONTRACTS_DIR}/deployedContracts.ts
+   - ${WEBSITE_CONTRACTS_DIR}/contractTypes.ts
+   - ${WEBSITE_CONTRACTS_DIR}/index.ts
 
 ✨ Done! Contract types are ready to use.
 `)

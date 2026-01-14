@@ -1,5 +1,5 @@
 {
-	"name": "@xors/nextjs",
+	"name": "@xors/website",
 	"version": "1.0.0",
 	"description": "A Next.js website starter for XORS projects.",
 	"private": true,

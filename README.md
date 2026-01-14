@@ -47,21 +47,21 @@ See `.env.example` for required environment variables.
 
 ## Directory Structure
 
-### Next.js (`packages/nextjs`)
+### Website (`website/`)
 
-- `/components` - React components
-- `/components/web3` - Web3-specific components (Address, Balance, ConnectButton)
-- `/config` - App configuration
-- `/constants` - Constant values (breakpoints, themes, URLs)
-- `/contracts` - Auto-generated contract ABIs and addresses
-- `/hooks` - Custom React hooks
-- `/hooks/contracts` - Contract interaction hooks
-- `/fonts` - Font files and configuration
-- `/providers` - React context providers
-- `/types` - TypeScript type definitions
-- `/utils` - Utility functions (new additions should include tests)
+- `/app/components` - React components
+- `/app/components/web3` - Web3-specific components (Address, Balance, ConnectButton)
+- `/app/config` - App configuration
+- `/app/constants` - Constant values (breakpoints, themes, URLs)
+- `/app/contracts` - Auto-generated contract ABIs and addresses
+- `/app/hooks` - Custom React hooks
+- `/app/hooks/contracts` - Contract interaction hooks
+- `/app/fonts` - Font files and configuration
+- `/app/providers` - React context providers
+- `/app/types` - TypeScript type definitions
+- `/app/utils` - Utility functions (new additions should include tests)
 
-### Foundry (`packages/foundry`)
+### Contracts (`contracts/`)
 
 - `/src` - Solidity contracts
 - `/script` - Deployment scripts
@@ -73,21 +73,25 @@ See `.env.example` for required environment variables.
 This starter includes a set of hooks for type-safe contract interactions:
 
 ```typescript
-import { useReadContract, useWriteContract, useDeployedContractInfo } from "@/hooks/contracts"
+import {
+  useReadContract,
+  useWriteContract,
+  useDeployedContractInfo,
+} from "@/hooks/contracts";
 
 // Read contract state
 const { data } = useReadContract({
   contractName: "Counter",
   functionName: "number",
-})
+});
 
 // Write to contract
-const { write, isPending } = useWriteContract("Counter")
-await write({ functionName: "increment" })
+const { write, isPending } = useWriteContract("Counter");
+await write({ functionName: "increment" });
 
 // Get contract info
-const { data: contract } = useDeployedContractInfo("Counter")
-console.log(contract?.address, contract?.abi)
+const { data: contract } = useDeployedContractInfo("Counter");
+console.log(contract?.address, contract?.abi);
 ```
 
 ## Custom Files
@@ -160,7 +164,7 @@ bun run generate     # Regenerate TypeScript types from ABIs
 # Testing & Quality
 bun test             # Run tests
 bun test:watch       # Run tests in watch mode
-bun run test:foundry # Run Foundry contract tests
+bun run test:contracts # Run Foundry contract tests
 bun lint             # Lint code with Biome
 bun lint:fix         # Fix lint issues
 bun format           # Check formatting

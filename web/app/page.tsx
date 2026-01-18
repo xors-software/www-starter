@@ -47,14 +47,6 @@ export default function Home() {
 					A full-stack monorepo starter with Next.js frontend and Elysia backend.
 					Batteries included for rapid development.
 				</p>
-				<div className="flex items-center justify-center gap-4">
-					<Button variant="default" size="large">
-						Get Started
-					</Button>
-					<Button variant="outline" size="large">
-						View Docs
-					</Button>
-				</div>
 			</section>
 
 			{/* Component Showcase */}

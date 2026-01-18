@@ -1,7 +1,19 @@
 import localFont from "next/font/local"
+import { Geist, Geist_Mono } from "next/font/google"
 
-// Each use of a 'next/font' is hosted as an instance in the app
-// To reduce the number of instances, we can define a font once and reuse it throughout the app
+// Geist - Modern sans-serif from Vercel
+const GeistSans = Geist({
+	subsets: ["latin"],
+	variable: "--font-geist-sans",
+	display: "swap",
+})
+
+// Geist Mono - Matching monospace font
+const GeistMono = Geist_Mono({
+	subsets: ["latin"],
+	variable: "--font-geist-mono",
+	display: "swap",
+})
 
 // Neue Haas Grotesk with multiple weights and styles
 const NeueHaasGrotesk = localFont({
@@ -106,8 +118,4 @@ const Iosevka = localFont({
 	display: "swap",
 })
 
-// Exports from here should be added to:
-// - GlobalStyleProvider, as CSS variables for use site-wide
-// - The 'fontFamily' block of tailwind.config.js, so we can conveniently use them in Tailwind classes like 'font-mono'
-
-export { Printvetica, Iosevka, NeueHaasGrotesk }
+export { GeistSans, GeistMono, Printvetica, Iosevka, NeueHaasGrotesk }

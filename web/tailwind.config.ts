@@ -1,4 +1,3 @@
-import { themes } from "./app/constants/themes"
 import type { Config } from "tailwindcss"
 import type { PluginAPI } from "tailwindcss/types/config"
 const { fontFamily } = require("tailwindcss/defaultTheme")
@@ -22,9 +21,8 @@ export default {
 			xl: "1440px",
 		},
 		fontFamily: {
-			hl: ["var(--font-printvetica)", ...fontFamily.sans],
-			mono: ["var(--font-iosevka)", ...fontFamily.mono],
-			sans: ["var(--font-neue-haas-grotesk)", ...fontFamily.sans],
+			sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+			mono: ["var(--font-geist-mono)", ...fontFamily.mono],
 		},
 		dropShadow: {
 			"2xs": "0px 0px 16px rgba(0, 0, 0, 0.1)",
@@ -32,21 +30,21 @@ export default {
 			sm: "0px 4px 50px rgba(0, 0, 0, 0.15)",
 		},
 		fontSize: {
-			"2xs": "0.625rem", // 10px
-			xs: "0.75rem", // 12px
-			sm: "0.875rem", // 14px
-			base: "1rem", // 16px
-			lg: "1.125rem", // 18px
-			xl: "1.25rem", // 20px
-			"2xl": "1.5rem", // 24px
-			"3xl": "2rem", // 32px
-			"4xl": "2.5rem", // 40px
-			"5xl": "3rem", // 48px
-			"6xl": "3.5rem", // 56px
-			"7xl": "4rem", // 64px
-			"8xl": "4.5rem", // 72px
-			"9xl": "6rem", // 96px
-			"10xl": "8rem", // 128px
+			"2xs": "0.625rem",
+			xs: "0.75rem",
+			sm: "0.875rem",
+			base: "1rem",
+			lg: "1.125rem",
+			xl: "1.25rem",
+			"2xl": "1.5rem",
+			"3xl": "2rem",
+			"4xl": "2.5rem",
+			"5xl": "3rem",
+			"6xl": "3.5rem",
+			"7xl": "4rem",
+			"8xl": "4.5rem",
+			"9xl": "6rem",
+			"10xl": "8rem",
 		},
 		variants: {
 			extend: {
@@ -54,9 +52,6 @@ export default {
 			},
 		},
 		extend: {
-			colors: ({ colors }) => ({
-				...themes.light,
-			}),
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
@@ -74,22 +69,14 @@ export default {
 					to: { height: "0" },
 				},
 				"fade-in": {
-					from: {
-						opacity: "0",
-					},
-					to: {
-						opacity: "1",
-					},
+					from: { opacity: "0" },
+					to: { opacity: "1" },
 				},
 				marquee: {
-					"100%": {
-						transform: "translateY(-50%)",
-					},
+					"100%": { transform: "translateY(-50%)" },
 				},
 				"spin-reverse": {
-					to: {
-						transform: "rotate(-360deg)",
-					},
+					to: { transform: "rotate(-360deg)" },
 				},
 			},
 			animation: {
@@ -117,20 +104,12 @@ export default {
 				addBase: PluginAPI["addBase"]
 				addUtilities: PluginAPI["addUtilities"]
 			}) => {
-				const customBaseStyles = {
-					// StyleGuide:
-					// - use a fj- prefix for custom classes so we know they're defined in this file
-				}
-
-				addBase(customBaseStyles)
-
-				const customUtilities = {
+				addBase({})
+				addUtilities({
 					".scrolling-touch": {
 						"-webkit-overflow-scrolling": "touch",
 					},
-				}
-
-				addUtilities(customUtilities)
+				})
 			},
 		),
 	],

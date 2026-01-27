@@ -33,10 +33,11 @@ export const usersRoutes = new Elysia({ prefix: "/users" })
 	})
 	.get(
 		"/:id",
-		({ params: { id }, error }) => {
+		({ params: { id }, set }) => {
 			const user = users.find((u) => u.id === id);
 			if (!user) {
-				return error(404, { message: "User not found" });
+				set.status = 404;
+				return { message: "User not found" };
 			}
 			return user;
 		},

@@ -1,10 +1,11 @@
 import type { Config } from "tailwindcss"
-import type { PluginAPI } from "tailwindcss/types/config"
-const { fontFamily } = require("tailwindcss/defaultTheme")
-const plugin = require("tailwindcss/plugin")
+import plugin from "tailwindcss/plugin"
+import defaultTheme from "tailwindcss/defaultTheme"
+
+const { fontFamily } = defaultTheme
 
 export default {
-	darkMode: ["class"],
+	darkMode: "class",
 	content: ["./app/**/*.{ts,tsx}"],
 	theme: {
 		container: {
@@ -96,21 +97,13 @@ export default {
 		},
 	},
 	plugins: [
-		plugin(
-			({
-				addBase,
-				addUtilities,
-			}: {
-				addBase: PluginAPI["addBase"]
-				addUtilities: PluginAPI["addUtilities"]
-			}) => {
-				addBase({})
-				addUtilities({
-					".scrolling-touch": {
-						"-webkit-overflow-scrolling": "touch",
-					},
-				})
-			},
-		),
+		plugin(({ addBase, addUtilities }) => {
+			addBase({})
+			addUtilities({
+				".scrolling-touch": {
+					"-webkit-overflow-scrolling": "touch",
+				},
+			})
+		}),
 	],
 } satisfies Config

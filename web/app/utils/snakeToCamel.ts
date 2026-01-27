@@ -15,7 +15,7 @@ export function snakeToCamel(obj: any): any {
   const camelCasedObj: any = {}
 
   for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+    if (Object.hasOwn(obj, key)) {
       const camelCasedKey = camelCase(key)
       camelCasedObj[camelCasedKey] = snakeToCamel(obj[key])
     }

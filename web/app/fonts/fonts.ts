@@ -1,5 +1,5 @@
-import localFont from "next/font/local"
 import { Geist, Geist_Mono } from "next/font/google"
+import localFont from "next/font/local"
 
 // Geist - Modern sans-serif from Vercel
 const GeistSans = Geist({
@@ -118,4 +118,4 @@ const Iosevka = localFont({
 	display: "swap",
 })
 
-export { GeistSans, GeistMono, Printvetica, Iosevka, NeueHaasGrotesk }
+export { GeistMono, GeistSans, Iosevka, NeueHaasGrotesk, Printvetica }

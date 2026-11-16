@@ -1,7 +1,7 @@
 export function getFormattedTweetURL(tweet: string) {
-  const formattedTweet = encodeURIComponent(tweet)
+	const formattedTweet = encodeURIComponent(tweet)
 
-  const formattedTweetURL = `https://twitter.com/intent/tweet?text=${formattedTweet}`
+	const formattedTweetURL = `https://twitter.com/intent/tweet?text=${formattedTweet}`
 
-  return formattedTweetURL
+	return formattedTweetURL
 }

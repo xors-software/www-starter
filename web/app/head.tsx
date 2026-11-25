@@ -1,7 +1,5 @@
-import DefaultMetaTags from '@/app/components/DefaultMetaTags';
+import DefaultMetaTags from "@/app/components/DefaultMetaTags"
 
 export default async function Head({ params }: { params: { slug: string } }) {
-  return (
-    <DefaultMetaTags />
-  );
+	return <DefaultMetaTags />
 }

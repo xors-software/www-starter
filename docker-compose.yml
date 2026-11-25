@@ -1,0 +1,45 @@
+# Local infrastructure. Run the API and web app on the host with `bun dev`.
+#   docker compose up -d          Postgres + Grafana LGTM
+#   docker compose down           stop (data is kept in volumes)
+#   docker compose down -v        stop and delete the data
+#
+# Host ports can be changed with the variables below if something else uses them.
+name: xors-starter
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: xors
+      POSTGRES_PASSWORD: xors
+      POSTGRES_DB: xors
+    command: >
+      postgres -c shared_preload_libraries=pg_stat_statements
+      -c pg_stat_statements.track=all -c log_min_duration_statement=250
+    ports: ["${POSTGRES_PORT:-5432}:5432"]
+    volumes: [postgres:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xors -d xors"]
+      interval: 2s
+      retries: 30
+
+  # OpenTelemetry Collector + Prometheus + Tempo + Loki + Grafana in one container.
+  # Grafana: http://localhost:3002 (no login). OTLP: 4317 (gRPC), 4318 (HTTP).
+  lgtm:
+    image: grafana/otel-lgtm:0.41.0
+    ports:
+      - "${GRAFANA_PORT:-3002}:3000"
+      - "${OTLP_GRPC_PORT:-4317}:4317"
+      - "${OTLP_HTTP_PORT:-4318}:4318"
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - ./ops/grafana/provisioning/dashboards.yaml:/otel-lgtm/grafana/conf/provisioning/dashboards/app.yaml:ro
+      - ./ops/grafana/provisioning/alerting.yaml:/otel-lgtm/grafana/conf/provisioning/alerting/app.yaml:ro
+      - ./ops/grafana/dashboards:/otel-lgtm/app-dashboards:ro
+      - lgtm:/data
+
+volumes:
+  postgres:
+  lgtm:

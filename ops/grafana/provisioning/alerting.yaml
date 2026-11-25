@@ -1,0 +1,58 @@
+# Starter alert rules. Thresholds are placeholders: set them from your SLOs.
+apiVersion: 1
+groups:
+  - orgId: 1
+    name: api
+    folder: App
+    interval: 1m
+    rules:
+      - uid: api-p95-latency
+        title: API p95 latency above 500 ms
+        condition: C
+        for: 5m
+        noDataState: OK
+        execErrState: Error
+        labels: { severity: warning }
+        annotations:
+          summary: p95 request duration is over 500 ms. The dashboard's per-route panel shows which route.
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: prometheus
+            model:
+              refId: A
+              instant: true
+              expr: histogram_quantile(0.95, sum by (le, deployment_environment_name) (rate(app_http_request_duration_seconds_bucket[5m])))
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator: { type: gt, params: [0.5] }
+      - uid: api-5xx-ratio
+        title: API 5xx above 1%
+        condition: C
+        for: 5m
+        noDataState: OK
+        execErrState: Error
+        labels: { severity: critical }
+        annotations:
+          summary: More than 1% of requests fail with 5xx. Each error log in Loki links to its trace.
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: prometheus
+            model:
+              refId: A
+              instant: true
+              expr: sum by (deployment_environment_name) (rate(app_http_request_duration_seconds_count{http_response_status_code=~"5.."}[5m])) / sum by (deployment_environment_name) (rate(app_http_request_duration_seconds_count[5m]))
+          - refId: C
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              expression: A
+              conditions:
+                - evaluator: { type: gt, params: [0.01] }

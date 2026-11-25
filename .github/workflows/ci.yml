@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: xors
+          POSTGRES_PASSWORD: xors
+          POSTGRES_DB: xors
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U xors" --health-interval 2s --health-retries 30
+    env:
+      TEST_DATABASE_ADMIN_URL: postgres://xors:xors@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - run: bun install --frozen-lockfile
+      - name: Lint and format (Biome)
+        run: bunx biome ci .
+      - name: Typecheck (TypeScript 7)
+        run: bun run type-check
+      - name: Tests (server tests use the Postgres service)
+        run: bun run test
+
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the server image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: server/Dockerfile
+          push: false
+          build-args: GIT_SHA=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

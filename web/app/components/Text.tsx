@@ -1,7 +1,6 @@
 import { Slot } from "@radix-ui/react-slot"
-
-import { clsx } from "clsx"
 import { cva, type VariantProps } from "class-variance-authority"
+import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 // ⭐️ only the variants object changed

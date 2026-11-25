@@ -1,13 +1,18 @@
 {
 	"name": "server",
-	"description": "Elysia backend API for XORS projects.",
+	"description": "Hono API on Node 24 for XORS projects.",
 	"version": "1.0.0",
 	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=24.12.0"
+	},
 	"scripts": {
-		"dev": "bun run --watch src/index.ts",
-		"build": "bun build src/index.ts --outdir ./dist --target bun",
-		"start": "bun run dist/index.js",
-		"test": "bun test",
+		"dev": "node --watch --env-file-if-exists=.env --import ./src/telemetry.ts src/index.ts",
+		"start": "node --env-file-if-exists=.env --import ./src/telemetry.ts src/index.ts",
+		"db:migrate": "node --env-file-if-exists=.env scripts/migrate.ts",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"lint": "biome lint .",
 		"lint:fix": "biome lint --write --unsafe .",
 		"format": "biome format .",
@@ -15,13 +20,35 @@
 		"type-check": "tsc --pretty --noEmit"
 	},
 	"dependencies": {
-		"@elysiajs/cors": "^1.4.2",
-		"@elysiajs/swagger": "^1.2.3",
-		"elysia": "^1.4.28"
+		"@hono/node-server": "^2.1.8",
+		"@hono/zod-openapi": "^1.6.3",
+		"@opentelemetry/api": "^1.10.0",
+		"@opentelemetry/exporter-logs-otlp-proto": "^0.301.2",
+		"@opentelemetry/exporter-metrics-otlp-proto": "^0.301.2",
+		"@opentelemetry/exporter-trace-otlp-proto": "^0.301.2",
+		"@opentelemetry/instrumentation-http": "^0.301.2",
+		"@opentelemetry/instrumentation-pg": "^0.78.0",
+		"@opentelemetry/instrumentation-pino": "^0.71.0",
+		"@opentelemetry/instrumentation-runtime-node": "^0.38.0",
+		"@opentelemetry/instrumentation-undici": "^0.35.1",
+		"@opentelemetry/resources": "^3.1.1",
+		"@opentelemetry/sdk-logs": "^3.1.1",
+		"@opentelemetry/sdk-metrics": "^3.1.1",
+		"@opentelemetry/sdk-node": "^0.301.2",
+		"@scalar/hono-api-reference": "^0.12.21",
+		"hono": "^4.13.19",
+		"import-in-the-middle": "^3.6.0",
+		"kysely": "^0.29.9",
+		"pg": "^8.23.1",
+		"pino": "^10.4.0",
+		"zod": "^4.6.7"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.15",
-		"@types/bun": "latest",
-		"typescript": "^5.9.3"
+		"@biomejs/biome": "^2.6.8",
+		"@types/node": "^24.19.2",
+		"@types/pg": "^8.23.1",
+		"typescript": "7.0.2",
+		"vite": "^8.3.8",
+		"vitest": "^5.1.0"
 	}
 }

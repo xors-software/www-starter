@@ -7,7 +7,9 @@ import { Home } from "@/components/icons/generated"
 
 export default function Navigation({
 	variant = "fixed",
-}: { variant?: "fixed" | "static" }) {
+}: {
+	variant?: "fixed" | "static"
+}) {
 	return (
 		<nav
 			className={clsx(

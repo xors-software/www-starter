@@ -1,8 +1,8 @@
 "use client"
 
 import { Button } from "../Button"
-import { toast } from "../toasts"
 import { Check, Warning, WifiOff } from "../icons/generated"
+import { toast } from "../toasts"
 
 export function ToastTest() {
 	return (

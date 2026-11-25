@@ -1,10 +1,10 @@
 import "./globals.css"
 import "./custom.css"
-import { cn } from "@/utils/cn"
-import { APP_CONFIG } from "@/config"
 import type { Metadata } from "next"
-import { GeistSans, GeistMono } from "@/fonts/fonts"
 import { Toaster } from "@/components/toasts/Toaster"
+import { APP_CONFIG } from "@/config"
+import { GeistMono, GeistSans } from "@/fonts/fonts"
+import { cn } from "@/utils/cn"
 
 export const metadata: Metadata = {
 	title: APP_CONFIG.NAME,

@@ -1,6 +1,12 @@
 "use client"
 
-import { GeistSans, GeistMono, Iosevka, NeueHaasGrotesk, Printvetica } from "@/fonts"
+import {
+	GeistMono,
+	GeistSans,
+	Iosevka,
+	NeueHaasGrotesk,
+	Printvetica,
+} from "@/fonts"
 import { useHasMounted } from "@/hooks"
 
 type ProviderType = {
